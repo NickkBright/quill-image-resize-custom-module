@@ -104,8 +104,8 @@ export class Toolbar extends BaseModule {
 					let minWidth = prompt(promptText, initialValue);
 					while (
 						minWidth !== null &&
-						Number(minWidth) !== NaN &&
-						Number(minWidth) >= 20
+						Number(minWidth) === NaN &&
+						Number(minWidth) < 20
 					) {
 						minWidth = prompt(promptText, initialValue);
 					}
