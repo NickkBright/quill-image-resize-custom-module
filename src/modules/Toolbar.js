@@ -101,11 +101,9 @@ export class Toolbar extends BaseModule {
 						"Please enter a min width (20px minimum)",
 						initialValue
 					);
-					if (Number(minWidth) && Number(minWidth) >= 20) {
-						MinWidthStyle.add(this.img, Number(minWidth));
-					}
+					MinWidthStyle.add(this.img, minWidth);
 				},
-				isApplied: () => MinWidthStyle.value(this.img) !== 300,
+				isApplied: () => MinWidthStyle.value(this.img) !== "300px",
 			},
 		];
 	};
