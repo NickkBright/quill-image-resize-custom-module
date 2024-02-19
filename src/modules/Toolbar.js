@@ -96,11 +96,25 @@ export class Toolbar extends BaseModule {
 			{
 				icon: IconComment,
 				apply: () => {
-					const initialValue = MinWidthStyle.value(this.img) || 300;
-					let minWidth = prompt(
-						"Please enter a min width (20px minimum)",
-						initialValue
-					);
+					const initialValue =
+						MinWidthStyle.value(this.img).replace("px", "") ||
+						"300";
+					const promptText =
+						"Please enter a min width (20px minimum)";
+					let minWidth = prompt(promptText, initialValue);
+					while (
+						minWidth !== null &&
+						Number(minWidth) !== NaN &&
+						Number(minWidth) >= 20
+					) {
+						minWidth = prompt(promptText, initialValue);
+					}
+					if (minWidth === null) {
+						MinWidthStyle.add(this.img, initialValue);
+
+						return;
+					}
+
 					MinWidthStyle.add(this.img, minWidth);
 				},
 				isApplied: () => MinWidthStyle.value(this.img) !== "300px",
