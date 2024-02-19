@@ -104,8 +104,7 @@ export class Toolbar extends BaseModule {
 					let minWidth = prompt(promptText, initialValue);
 					while (
 						minWidth !== null &&
-						Number(minWidth) === NaN &&
-						Number(minWidth) < 20
+						(Number(minWidth) === NaN || Number(minWidth) < 20)
 					) {
 						minWidth = prompt(promptText, initialValue);
 					}
@@ -115,7 +114,7 @@ export class Toolbar extends BaseModule {
 						return;
 					}
 
-					MinWidthStyle.add(this.img, minWidth);
+					MinWidthStyle.add(this.img, minWidth.concat("px"));
 				},
 				isApplied: () => MinWidthStyle.value(this.img) !== "300px",
 			},
