@@ -32,7 +32,7 @@ export class Toolbar extends BaseModule {
 		// Setup Buttons
 		this._defineAlignments();
 		this._defineActions();
-		this._addToolbarButtons();
+		this._addToolbarAlignmentsButtons();
 		this._addToolbarButtonsToActions();
 	};
 
@@ -154,7 +154,7 @@ export class Toolbar extends BaseModule {
 		];
 	};
 
-	_addToolbarButtons = () => {
+	_addToolbarAlignmentsButtons = () => {
 		const buttons = [];
 		this.alignments.forEach((alignment, idx) => {
 			const button = document.createElement("span");
@@ -176,7 +176,10 @@ export class Toolbar extends BaseModule {
 				// image may change position; redraw drag handles
 				this.requestUpdate();
 			});
-			Object.assign(button.style, this.options.toolbarButtonStyles);
+			Object.assign(
+				button.style,
+				this.options.toolbarAlignmentsButtonStyles
+			);
 			if (idx > 0) {
 				button.style.borderLeftWidth = "0";
 			}

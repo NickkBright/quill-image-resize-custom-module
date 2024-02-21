@@ -39,10 +39,18 @@ export default {
 		boxSizing: "border-box",
 		cursor: "default",
 	},
-	toolbarButtonStyles: {
+	toolbarAlignmentsButtonStyles: {
 		display: "inline-block",
 		width: "24px",
 		height: "24px",
+		background: "white",
+		border: "1px solid #999",
+		verticalAlign: "middle",
+	},
+	toolbarButtonStyles: {
+		display: "inline-block",
+		height: "24px",
+		padding: "2px",
 		background: "white",
 		border: "1px solid #999",
 		verticalAlign: "middle",
