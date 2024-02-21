@@ -1,8 +1,9 @@
 import IconAlignLeft from "quill/assets/icons/align-left.svg";
 import IconAlignCenter from "quill/assets/icons/align-center.svg";
 import IconAlignRight from "quill/assets/icons/align-right.svg";
-import IconComment from "quill/assets/icons/comment.svg";
-import IconLink from "quill/assets/icons/link.svg";
+import AltIcon from "../assets/AltIcon.svg";
+import DescIcon from "../assets/DescIcon.svg";
+import MinWidthIcon from "../assets/MinWidthIcon.svg";
 
 import { BaseModule } from "./BaseModule";
 
@@ -58,7 +59,7 @@ export class Toolbar extends BaseModule {
 			// 	},
 			// },
 			{
-				icon: IconComment,
+				icon: AltIcon,
 				apply: () => {
 					const findImg = Parchment.find(this.img);
 					const imgTitle = findImg.domNode.alt;
@@ -76,7 +77,7 @@ export class Toolbar extends BaseModule {
 				},
 			},
 			{
-				icon: IconComment,
+				icon: DescIcon,
 				apply: () => {
 					const findImg = Parchment.find(this.img);
 					const imgDesc = findImg.domNode.dataset.description;
@@ -94,7 +95,7 @@ export class Toolbar extends BaseModule {
 				},
 			},
 			{
-				icon: IconComment,
+				icon: MinWidthIcon,
 				apply: () => {
 					const initialValue =
 						MinWidthStyle.value(this.img).replace("px", "") ||
@@ -181,7 +182,7 @@ export class Toolbar extends BaseModule {
 			}
 			Object.assign(
 				button.children[0].style,
-				this.options.toolbarButtonSvgStyles
+				this.options.toolbarAlignmentsButtonSvgStyles
 			);
 			if (alignment.isApplied()) {
 				// select button if previously applied
@@ -195,6 +196,7 @@ export class Toolbar extends BaseModule {
 		const buttons = [];
 		this.actions.forEach((action, idx) => {
 			const button = document.createElement("span");
+			button.role = "button";
 			buttons.push(button);
 			button.innerHTML = action.icon;
 			button.addEventListener("click", () => {
@@ -208,10 +210,6 @@ export class Toolbar extends BaseModule {
 			} else if (idx === 0) {
 				button.style.marginLeft = "10px";
 			}
-			Object.assign(
-				button.children[0].style,
-				this.options.toolbarButtonSvgStyles
-			);
 			if (action.isApplied()) {
 				// select button if previously applied
 				this._selectButton(button);
