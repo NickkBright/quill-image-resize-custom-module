@@ -26,7 +26,20 @@ export class Toolbar extends BaseModule {
 		);
 		// Setup Toolbar
 		this.toolbar = document.createElement("div");
+		this.alignmentsContainer = document.createElement("div");
+		this.actionsContainer = document.createElement("div");
+
 		Object.assign(this.toolbar.style, this.options.toolbarStyles);
+		Object.assign(
+			this.alignmentsContainer.style,
+			this.options.toolbarContainersStyles
+		);
+		Object.assign(
+			this.actionsContainer.style,
+			this.options.toolbarContainersStyles
+		);
+		this.toolbar.appendChild(this.alignmentsContainer);
+		this.toolbar.appendChild(this.actionsContainer);
 		this.overlay.appendChild(this.toolbar);
 
 		// Setup Buttons
@@ -103,16 +116,18 @@ export class Toolbar extends BaseModule {
 					const promptText =
 						"Please enter a min width (20px minimum)";
 					let minWidth = prompt(promptText, initialValue);
-					while (
-						minWidth !== null &&
-						(Number(minWidth) === NaN || Number(minWidth) < 20)
-					) {
-						minWidth = prompt(promptText, initialValue);
-					}
-					if (minWidth === null) {
+
+					if (minWidth === "") {
 						MinWidthStyle.add(this.img, initialValue);
 
 						return;
+					}
+
+					while (
+						minWidth !== "" &&
+						(!Number(minWidth) || Number(minWidth) < 20)
+					) {
+						minWidth = prompt(promptText, initialValue);
 					}
 
 					MinWidthStyle.add(this.img, minWidth.concat("px"));
@@ -180,9 +195,14 @@ export class Toolbar extends BaseModule {
 				button.style,
 				this.options.toolbarAlignmentsButtonStyles
 			);
-			if (idx > 0) {
-				button.style.borderLeftWidth = "0";
+
+			if (idx === this.actions.length - 1) {
+				button.style.borderRadius = "0 3px 3px 0";
+				button.style.borderRight = "unset";
+			} else if (idx === 0) {
+				button.style.borderRadius = "3px 0 0 3px";
 			}
+
 			Object.assign(
 				button.children[0].style,
 				this.options.toolbarAlignmentsButtonSvgStyles
@@ -191,7 +211,7 @@ export class Toolbar extends BaseModule {
 				// select button if previously applied
 				this._selectButton(button);
 			}
-			this.toolbar.appendChild(button);
+			this.alignmentsContainer.appendChild(button);
 		});
 	};
 
@@ -207,18 +227,23 @@ export class Toolbar extends BaseModule {
 				action.apply();
 				this.requestUpdate();
 			});
+
 			Object.assign(button.style, this.options.toolbarButtonStyles);
-			if (idx > 0) {
-				button.style.borderLeftWidth = "0";
+			Object.assign(button.children[0].style, this.options.svgStyles);
+
+			if (idx === this.actions.length - 1) {
+				button.style.borderRadius = "0 3px 3px 0";
+				button.style.borderRight = "unset";
 			} else if (idx === 0) {
-				button.style.marginLeft = "10px";
+				button.style.borderRadius = "3px 0 0 3px";
 			}
+
 			if (action.isApplied()) {
 				// select button if previously applied
 				this._selectButton(button);
 				button.title = this.img.getAttribute("data-href");
 			}
-			this.toolbar.appendChild(button);
+			this.actionsContainer.appendChild(button);
 		});
 	};
 

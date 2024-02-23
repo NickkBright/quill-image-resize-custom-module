@@ -1,6 +1,6 @@
 {
 	"name": "quill-image-resize-custom-module",
-	"version": "4.1.6",
+	"version": "4.1.7",
 	"description": "A module for Quill rich text editor to allow images to be resized, add alt text (with react fixes), add image description and set image minimum width.",
 	"main": "image-resize.min.js",
 	"scripts": {
